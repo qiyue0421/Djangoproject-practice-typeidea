@@ -20,6 +20,9 @@ class Link(models.Model):
         verbose_name = '友链'
         verbose_name_plural = '友链'
 
+    def __str__(self):
+        return self.title
+
 
 # 侧边栏Model
 class SideBar(models.Model):
@@ -37,3 +40,6 @@ class SideBar(models.Model):
     class Meta:
         verbose_name = '侧边栏'
         verbose_name_plural = '侧边栏'
+
+    def __str__(self):
+        return self.title

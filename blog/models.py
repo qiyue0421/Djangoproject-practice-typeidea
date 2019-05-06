@@ -18,6 +18,9 @@ class Category(models.Model):
         verbose_name = '分类'
         verbose_name_plural = '分类'
 
+    def __str__(self):
+        return self.name
+
 
 # 标签Model
 class Tag(models.Model):
@@ -32,6 +35,9 @@ class Tag(models.Model):
     class Meta:
         verbose_name = '分类'
         verbose_name_plural = '分类'
+
+    def __str__(self):
+        return self.name
 
 
 # 文章Model
@@ -53,3 +59,6 @@ class Post(models.Model):
         verbose_name = '文章'
         verbose_name_plural = '文章'
         ordering = ['-id']  # 根据id进行降序排列
+
+    def __str__(self):
+        return self.title
