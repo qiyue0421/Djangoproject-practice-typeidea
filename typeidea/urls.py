@@ -15,7 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from typeidea.custom_site import custome_site
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^super_admin/', admin.site.urls),  # 管理用户
+    url(r'^admin/', custome_site.urls)  # 管理业务
 ]
