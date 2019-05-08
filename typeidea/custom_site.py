@@ -2,7 +2,7 @@
 from django.contrib.admin import AdminSite
 
 
-class CustomSite(AdminSite):  # 继承AdminSite用来自定义site
+class CustomSite(AdminSite):  # 继承AdminSite用来自定义普通用户的site
     site_header = 'Typeidea'
     site_title = 'Typeidea 管理后台'
     index_title = '首页'
