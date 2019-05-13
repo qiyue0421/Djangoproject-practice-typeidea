@@ -23,3 +23,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.target
+
+    @classmethod
+    def get_comments(cls):
+        return cls.objects.filter(status=cls.STATUS_NORMAL)

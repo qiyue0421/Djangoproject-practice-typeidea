@@ -15,9 +15,29 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+
+from blog.views import *
+from config.views import links
 from typeidea.custom_site import custome_site
 
 urlpatterns = [
-    url(r'^super_admin/', admin.site.urls),  # 管理用户
-    url(r'^admin/', custome_site.urls)  # 管理业务
+    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^category/(?P<category_id>\d+)/$', CategoryView.as_view(), name='category-list'),
+    url(r'^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name='tag-list'),
+    url(r'^post/(?P<post_id>\d+).html$', PostDetailView.as_view(), name='post-detail'),
+    url(r'^links/$', links, name='links'),
+    url(r'^super_admin/', admin.site.urls, name='super-admin'),  # 管理用户
+    url(r'^admin/', custome_site.urls, name='admin'),  # 管理业务
 ]
+
+"""
+urlpatterns = [
+    url(r'^$', post_list, name='index'),
+    url(r'^category/(?P<category_id>\d+)/$', post_list, name='category-list'),
+    url(r'^tag/(?P<tag_id>\d+)/$', post_list, name='tag-list'),
+    url(r'^post/(?P<post_id>\d+).html$', post_detail, name='post-detail'),
+    url(r'^links/$', links, name='links'),
+    url(r'^super_admin/', admin.site.urls, name='super-admin'),  # 管理用户
+    url(r'^admin/', custome_site.urls, name='admin'),  # 管理业务
+]
+"""
