@@ -54,11 +54,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'typeidea.urls'
 
+# THEME = 'default'  # 设定default主题为默认样式
+THEME = 'bootstrap'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'themes', THEME, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,4 +122,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+# 若存放静态文件的static目录在app目录下，则用该定义
 STATIC_URL = '/static/'
+# 若存放静态文件的static目录在project目录下，则用该定义
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "blog/../static"),
+]

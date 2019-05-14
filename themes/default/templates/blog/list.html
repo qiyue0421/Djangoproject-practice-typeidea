@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block main %}
-    <u1>
+    <ul>
         {% for post in post_list %}
             <li>
                 <a href="{% url 'post-detail' post.id %} }}">{{ post.title }}</a>
@@ -22,7 +22,7 @@
                 <p>{{ post.desc }}</p>
             </li>
         {% endfor %}
-    </u1>
+    </ul>
     {% if page_obj %}
         {% if page_obj.has_previous %}
             <a href="?page={{ page_obj.previous_page_number }}">上一页</a>
