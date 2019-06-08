@@ -21,6 +21,9 @@ from comment.views import *
 from config.views import *
 
 from typeidea.custom_site import custome_site
+from django.contrib.sitemaps import views as sitemap_views
+from blog.rss import LatestPostFeed
+from blog.sitemap import PostSitemap
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
@@ -31,6 +34,8 @@ urlpatterns = [
     url(r'^comment/$', CommentView.as_view(), name='comment'),
     url(r'^search/$', SearchView.as_view(), name='search'),
     url(r'^links/$', LinkListView.as_view(), name='links'),
+    url(r'^rss|feed/', LatestPostFeed(), name='rss'),
+    url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
     url(r'^super_admin/', admin.site.urls, name='super-admin'),  # 管理用户
     url(r'^admin/', custome_site.urls, name='admin'),  # 管理业务
 ]

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Comment
+import mistune  # 第三方库，支持markdown格式处理
 
 
 class CommentForm(forms.ModelForm):
@@ -12,6 +13,7 @@ class CommentForm(forms.ModelForm):
         content = self.cleaned_data.get('content')
         if len(content) < 10:
             raise forms.ValidationError('内容长度怎么能这么能短呢！！')
+        content = mistune.markdown(content, escape=True)  # 转换为markdown格式的数据
         return content
 
     class Meta:

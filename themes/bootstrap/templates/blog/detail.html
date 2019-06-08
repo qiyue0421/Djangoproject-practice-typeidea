@@ -1,6 +1,15 @@
 {% extends 'blog/base.html' %}
 
+<!-- 引入自定义标签 -->
+{% load comment_block %}
+
 {% block title %}{{ post.title }}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
+{% endblock %}
 
 {% block main %}
     {% if post %}
@@ -11,30 +20,11 @@
         </div>
         <hr/>
         <p>
-            {{ post.content }}
+            {% autoescape off %}
+                {{ post.content }}
+            {% endautoescape %}
         </p>
     {% endif %}
-    <hr/>
-    <div class="comment">
-        <form class="form-group" action="/comment/" method="post">
-            {% csrf_token %}
-            <input name="target" type="hidden" value="{{ request.path }}"/>
-            {{ comment_form }}
-            <input type="submit" value="写好了！"/>
-        </form>
-        <!-- 评论列表 -->
-        <ul class="list-group">
-            {% for comment in comment_list %}
-                <li class="list-group-item">
-                    <div class="nickname">
-                        <a href="{{ comment.website }}">{{ comment.nickname }}</a>
-                        <span>{{ comment.created_time }}</span>
-                    </div>
-                    <div class="comment-content">
-                        {{ comment.content }}
-                    </div>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+    <!-- 展示评论 -->
+    {% comment_block request.path %}
 {% endblock %}
