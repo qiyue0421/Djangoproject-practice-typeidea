@@ -9,7 +9,8 @@ class Comment(models.Model):
     STATUS_NORMAL = 1
     STATUS_DELETE = 0
     STATUS_ITEMS = ((STATUS_NORMAL, '正常'), (STATUS_DELETE, '删除'),)
-    target = models.ForeignKey(Post, verbose_name='评论目标')  # 暂时使用一对一的关系，耦合到文章上
+    # target = models.ForeignKey(Post, verbose_name='评论目标')  # 暂时使用一对一的关系，耦合到文章上
+    target = models.CharField(max_length=100, verbose_name='评论目标')  # 存放任意字符，兼容更多场景
     content = models.CharField(max_length=2000, verbose_name='内容')
     nickname = models.CharField(max_length=50, verbose_name='昵称')
     website = models.URLField(verbose_name='网站')
@@ -27,3 +28,7 @@ class Comment(models.Model):
     @classmethod
     def get_comments(cls):
         return cls.objects.filter(status=cls.STATUS_NORMAL)
+
+    @classmethod
+    def get_by_target(cls, target):  # 提供接口，返回某篇文章下的所有有效评论
+        return cls.objects.filter(target=target, status=cls.STATUS_NORMAL)

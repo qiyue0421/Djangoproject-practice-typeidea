@@ -1,8 +1,12 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
-from .models import *
-from config.models import *
 from django.views.generic import ListView, DetailView
+from django.db.models import Q
+from .models import *  # blog数据库
+from config.models import *  # config数据库
+from comment.models import *  # comment数据库
+from comment.forms import *  # comment表单
+
 # Create your views here.
 
 
@@ -62,6 +66,33 @@ class PostDetailView(CommonViewMixin, DetailView):  # 文章详情页
     context_object_name = 'post'
     pk_url_kwarg = 'post_id'  # pk_url_kwarg用于接收一个来自url中的主键，然后会根据这个主键进行查询
 
+    def get_context_data(self, **kwargs):  # 重写类方法，传入评论表单和评论数据
+        context = super().get_context_data(**kwargs)
+        context.update({'comment_form': CommentForm, 'comment_list': Comment.get_by_target(self.request.path)})
+        return context
+
+
+class SearchView(IndexView):  # 使用关键字搜索文章页面
+    def get_context_data(self):
+        context = super().get_context_data()
+        context.update({
+            'keyword': self.request.GET.get('keyword', '')
+        })
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        keyword = self.request.GET.get('keyword')
+        if not keyword:
+            return queryset
+        return queryset.filter(Q(title__icontains=keyword) | Q(desc__icontains=keyword))
+
+
+class AuthorView(IndexView):
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        author_id = self.kwargs.get('owner_id')
+        return queryset.filter(owner_id=author_id)
 
 # 函数视图实现
 """
