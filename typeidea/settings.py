@@ -40,8 +40,15 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'config.apps.ConfigConfig',
     'comment.apps.CommentConfig',
+    # xadmin插件
     'xadmin',
     'crispy_forms',
+    # 自动补齐插件
+    'dal',
+    'dal_select2',
+    # 富文本编辑器插件
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -132,6 +139,24 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "blog/../static"),
 ]
 
-
+# xadmin配置
 XADMIN_TITLE = 'Typeidea 管理后台'
 XADMIN_FOOTER_TITLE = 'power by qiyue.com'
+
+
+# django-ckeditor配置
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 400,
+        'width': 1000,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',  # 配置代码插件
+    },
+}
+
+
+# 图片上传配置
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+CKEDITOR_UPLOAD_PATH = "article_images"

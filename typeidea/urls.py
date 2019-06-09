@@ -24,8 +24,15 @@ from typeidea.custom_site import custome_site
 from django.contrib.sitemaps import views as sitemap_views
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
-
+from .autocomplete import *
 import xadmin
+
+from django.conf import settings
+from django.conf.urls import url, include
+from django.conf.urls.static import static
+
+
+
 
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
@@ -38,9 +45,12 @@ urlpatterns = [
     url(r'^links/$', LinkListView.as_view(), name='links'),
     url(r'^rss|feed/', LatestPostFeed(), name='rss'),
     url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
+    url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name='category-autocomplete'),
+    url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
+    url(r'^ckeditor/$', include('ckeditor_uploader.urls')),
     url(r'^super_admin/', admin.site.urls, name='super-admin'),  # 管理用户
     url(r'^admin/', xadmin.site.urls, name='xadmin'),  # 管理业务
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 """
 urlpatterns = [
