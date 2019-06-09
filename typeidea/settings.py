@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -136,7 +135,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # 若存放静态文件的static目录在project目录下，则用该定义
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "blog/../static"),
+    os.path.join(BASE_DIR, 'themes', THEME, "static"),
 ]
 
 # xadmin配置
@@ -160,3 +159,7 @@ CKEDITOR_CONFIGS = {
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 CKEDITOR_UPLOAD_PATH = "article_images"
+
+
+# 自定义存储
+DEFAULT_FILE_STORAGE = 'typeidea.storage.WatermarkStorage'

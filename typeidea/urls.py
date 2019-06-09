@@ -47,7 +47,7 @@ urlpatterns = [
     url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
     url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name='category-autocomplete'),
     url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
-    url(r'^ckeditor/$', include('ckeditor_uploader.urls')),
+    url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^super_admin/', admin.site.urls, name='super-admin'),  # 管理用户
     url(r'^admin/', xadmin.site.urls, name='xadmin'),  # 管理业务
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
