@@ -25,6 +25,8 @@ from django.contrib.sitemaps import views as sitemap_views
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
 
+import xadmin
+
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^category/(?P<category_id>\d+)/$', CategoryView.as_view(), name='category-list'),
@@ -37,7 +39,7 @@ urlpatterns = [
     url(r'^rss|feed/', LatestPostFeed(), name='rss'),
     url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
     url(r'^super_admin/', admin.site.urls, name='super-admin'),  # 管理用户
-    url(r'^admin/', custome_site.urls, name='admin'),  # 管理业务
+    url(r'^admin/', xadmin.site.urls, name='xadmin'),  # 管理业务
 ]
 
 """

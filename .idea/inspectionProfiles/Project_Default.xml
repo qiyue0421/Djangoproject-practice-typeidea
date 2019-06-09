@@ -5,6 +5,10 @@
       <option name="ignoredIdentifiers">
         <list>
           <option value="object.get_context_data" />
+          <option value="typeidea.base_admin.BaseOwnerAdmin.request" />
+          <option value="object.get_list_queryset" />
+          <option value="typeidea.base_admin.BaseOwnerAdmin.new_obj" />
+          <option value="object.save_models" />
         </list>
       </option>
     </inspection_tool>
