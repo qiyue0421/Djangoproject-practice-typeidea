@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     # 富文本编辑器插件
     'ckeditor',
     'ckeditor_uploader',
+    # rest_franmework
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
