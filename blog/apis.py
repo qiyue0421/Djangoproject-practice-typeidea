@@ -2,10 +2,25 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser
 
 from .models import *
-from .serializers import PostSerializer
+from .serializers import *
 
 
 class PostViewSet(viewsets.ModelViewSet):
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=Post.STATUS_NORMAL)
-    permission_classes = [IsAdminUser]
+    # permission_classes = [IsAdminUser]
+
+    def retrieve(self, request, *args, **kwargs):
+        self.serializer_class = PostDetailSerializer
+        return super().retrieve(request, *args, **kwargs)
+
+    def filter_queryset(self, queryset):  # 获取某个分类下的文章列表
+        category_id = self.request.query_params.get('category')
+        if category_id:
+            queryset = queryset.filter(category_id=category_id)
+        return queryset
+
+
+class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = CategorySerializer
+    queryset = Category.objects.filter(status=Category.STATUS_NORMAL)
