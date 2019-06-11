@@ -59,6 +59,7 @@ urlpatterns = [
     url(r'^admin/', xadmin.site.urls, name='xadmin'),  # 管理业务
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+
 """
 urlpatterns = [
     url(r'^$', post_list, name='index'),
