@@ -20,7 +20,6 @@ from blog.views import *
 from comment.views import *
 from config.views import *
 
-from typeidea.custom_site import custome_site
 from django.contrib.sitemaps import views as sitemap_views
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
